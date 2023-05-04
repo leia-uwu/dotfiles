@@ -1,0 +1,56 @@
+#! /bin/sh
+xrandr -r 75
+export QT_QPA_PLATFORMTHEME=qt5ct
+export XDG_USE_PORTAL=1
+if [ -d "$HOME/.local/bin" ] ; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+start() {
+	killall $1; $1 $2 &
+}
+
+start /usr/lib/xdg-desktop-portal-kde
+
+/usr/lib/polkit-kde-authentication-agent-1 &
+
+start numlockx
+start dunst
+start nitrogen "--restore"
+start picom "--experimental-backends"
+kded5 --replace &
+qdbus org.kde.kded5 /kded loadModule gtkconfig &
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X &
+bspc config pointer_motion_interval 10 &
+bspc config border_width         2 &
+bspc config window_gap           4 &
+bspc config single_monocle       true &
+bspc config split_ratio          0.5 &
+bspc config borderless_monocle   true &
+bspc config gapless_monocle      true &
+
+bspc config normal_border_color "#2a2e32" &
+bspc config focused_border_color "#335c72" &
+
+
+# window rules
+
+#bspc config external_rules_command ~/.config/bspwm/external_rules
+
+bspc rule -a Chromium desktop='^2' &
+bspc rule -a plasma.emojier state=floating &
+bspc rule -a Peek state=floating &
+bspc rule -a kruler state=floating &
+bspc rule -a Emacs state=tiled &
+
+bspc rule -a plasmawindowed state=floating border=off sticky=on &
+
+start polybar "-r --config=~/.config/polybar/config.ini main"
+sleep 2
+start clipit
+start nm-tray
+start kdeconnect-indicator
+start flameshot

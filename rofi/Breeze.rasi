@@ -1,0 +1,64 @@
+@import "kde-colors.rasi"
+
+* {
+    background-color: @theme-bg-color-breeze;
+    text-color: @theme-text-color-breeze;
+}
+
+window {
+    border: 2px;
+    border-color: @borders-breeze;
+    border-radius: 3px;
+    padding: 0;
+}
+
+mainbox {
+    border: 0;
+    padding: 2px;
+}
+
+message {
+    border: 1px dash 0px 0px ;
+    padding: 2px 0px 0px ;
+}
+
+listview {
+    lines: 12;
+    fixed-height: 0;
+    border: 2px 0px 0px ;
+    padding: 2px 0px 0px ;
+}
+element {
+    padding: 4px;
+    border-radius: 2px;
+}
+element-text {
+    background-color: rgba(0,0,0,0);
+    vertical-align: 0.5;
+}
+element-icon {
+    background-color: rgba(0,0,0,0);
+    size: 30;
+}
+
+element.selected {
+    border: 2px;
+    background-color: @theme-button-decoration-focus-insensitive-breeze;
+    border-color: @theme-button-decoration-hover-backdrop-breeze;
+}
+
+inputbar {
+    spacing: 0;
+    border: 0px;
+}
+
+inputbar {
+    children: [ prompt,textbox-prompt-colon,entry,case-indicator ];
+    padding: 5px;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+    margin: 0px 0.3em 0em 0em ;
+}

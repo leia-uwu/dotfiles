@@ -1,0 +1,68 @@
+alias c="clear" \
+e="exit" \
+rm='rm -i --preserve-root' \
+yt="yt-dlp --format mp4" \
+ytmp3="yt-dlp --extract-audio --audio-format mp3" \
+py="python3" \
+sudo="sudo -E" \
+wget="wget -c" \
+pyhttp="python3 -m http.server" \
+mkdir="mkdir -p" \
+ll='ls -hlF' \
+la='ls -A' \
+l='ls -CF' \
+ls='ls --color=auto' \
+dir='dir --color=auto' \
+vdir='vdir --color=auto' \
+grep='grep --color=auto' \
+fgrep='fgrep --color=auto' \
+egrep='egrep --color=auto' \
+ip='ip --color=auto' \
+tree="tree -C" \
+myip="ip -o route get to 1.1.1.1 | sed -n 's/.*src \([0-9.]\+\).*/\1/p'" \
+kwrite="stfu kwrite" \
+dolphin="stfu dolphin" \
+open="xdg-open" \
+js="node" \
+chown='chown --preserve-root' \
+chmod='chmod --preserve-root' \
+chgrp='chgrp --preserve-root' \
+history="history 0" \
+wlprop="qdbus org.kde.KWin /KWin org.kde.KWin.queryWindowInfo" \
+
+cdtmp () {
+    cd $(mktemp -d)
+}
+
+mkcd () {
+    mkdir $1
+    cd $1
+}
+
+yplay() {
+    mpv --input-ipc-server=/tmp/mpvcmd --ytdl-format=bestaudio ytdl://ytsearch:"$*"
+}
+
+ytmp3wt() {
+    yt-dlp --embed-thumbnail --add-metadata --extract-audio --audio-format=mp3 --ppa "EmbedThumbnail+ffmpeg_o:-c:v png -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\"" --check-formats -f bestaudio -S "proto:https,acodec,+asr:44100" --audio-quality 0 $@
+}
+
+stfu() {
+    "$@" >/dev/null 2>&1 &!
+}
+
+dbase64() {
+    echo "$@" | base64 -d
+}
+
+ebase64() {
+    echo "$@" | base64
+}
+
+dbase32() {
+    echo "$@" | base32 -d
+}
+
+ebase32() {
+    echo "$@" | base32
+}

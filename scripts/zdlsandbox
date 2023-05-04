@@ -1,0 +1,54 @@
+#!/usr/bin/bash
+
+# script to run zdl doom launcher on a bwrap sandbox because i don't trust some random gzdoom mods lol
+# and also it makes prboom-plus and dsda-doom use the .config folder instead of creating folders on the home directory
+
+exec bwrap \
+--symlink usr/lib /lib \
+--symlink usr/lib64 /lib64 \
+--symlink usr/bin /bin \
+--symlink usr/bin /sbin \
+--ro-bind /usr/lib /usr/lib \
+--ro-bind /usr/lib64 /usr/lib64 \
+--ro-bind /usr/bin /usr/bin \
+--ro-bind /etc /etc \
+--ro-bind /usr/share /usr/share \
+--dev /dev \
+--dev-bind /dev/dri /dev/dri \
+--proc /proc \
+--ro-bind-try /sys/dev/char /sys/dev/char \
+--ro-bind-try /sys/devices /sys/devices \
+--ro-bind-try /run/dbus /run/dbus \
+--ro-bind-try "/run/user/$UID/pipewire-0" "/run/user/$UID/pipewire-0" \
+--ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
+--tmpfs /tmp \
+--tmpfs $HOME \
+--bind-try $HOME/Games/Doom $HOME/Games/Doom \
+--bind-try $HOME/.config/qZDLrc $HOME/.config/qZDLrc \
+--bind-try $HOME/.config/zdoom $HOME/.config/zdoom \
+--bind-try "$HOME/.config/Vectec Software" "$HOME/.config/Vectec Software" \
+--ro-bind-try $HOME/.Xauthority $HOME/.Xauthority \
+--ro-bind-try $HOME/.Xdefaults $HOME/.Xdefaults \
+--ro-bind-try $HOME/.Xresources $HOME/.Xresources \
+--ro-bind-try $HOME/.config/gamemode.ini $HOME/.config/gamemode.ini \
+--ro-bind-try $HOME/.config/kdeglobals $HOME/.config/kdeglobals \
+--ro-bind-try $HOME/.config/breezerc $HOME/.config/breezerc \
+--ro-bind-try $HOME/.config/klassyrc $HOME/.config/klassyrc \
+--ro-bind-try $HOME/.config/qt5ct $HOME/.config/qt5ct \
+--setenv XCURSOR_THEME breeze_cursors \
+--setenv SDL_VIDEODRIVER $XDG_SESSION_TYPE \
+--ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
+--ro-bind-try /run/user/$UID/bus /run/user/$UID/bus \
+--ro-bind-try /usr/lib/snapd-xdg-open/xdg-open /usr/bin/xdg-open \
+--ro-bind-try /usr/lib/snapd-xdg-open/xdg-open /usr/bin/firefox \
+--ro-bind-try /usr/lib/snapd-xdg-open/xdg-open /usr/bin/dolphin \
+--setenv XDG_RUNTIME_DIR "/run/user/$UID" \
+--setenv DBUS_SESSION_BUS_ADDRESS "unix:path=/run/user/$UID/bus" \
+--bind-try $HOME/.config/gzdoom $HOME/.config/gzdoom \
+--bind-try $HOME/.config/prboom-plus $HOME/.prboom-plus \
+--bind-try $HOME/.config/dsda-doom $HOME/.dsda-doom \
+--bind-try $HOME/.local/share/crispy-doom $HOME/.local/share/crispy-doom \
+--bind-try $HOME/.cache/zdl $HOME/.cache \
+--bind-try "/run/user/$UID/discord-ipc-0" /run/user/$UID/discord-ipc-0 \
+--ro-bind-try /run/user/$UID/$WAYLAND_DISPLAY /run/user/$UID/$WAYLAND_DISPLAY \
+zdl $@

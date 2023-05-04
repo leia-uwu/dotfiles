@@ -1,0 +1,63 @@
+div#fullscr-toggler {
+    display: none !important;
+}
+
+#navigator-toolbox[fullscreenShouldAnimate] {
+    transition: none !important;
+}
+
+.tab-background {
+    margin: 0 !important;
+    --tab-border-radius: 5px 5px 0px 0px !important;
+}
+
+:root {
+    --toolbar-bgimage: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'> <rect fill='rgba(255,255,255,0.1)' x='0' y='0' width='100%' height='100%'/></svg>")!important;
+}
+
+#TabsToolbar #firefox-view-button[open] > .toolbarbutton-icon,
+.tab-background:is([selected], [multiselected]) {
+    border-top: AccentColor 3px solid !important;
+    background-color: Menu!important;
+    background-image: var(--toolbar-bgimage);
+}
+
+.browser-toolbar:not(.titlebar-color) {
+    background-color: Menu!important;
+    background-image: var(--toolbar-bgimage);
+}
+
+.tab-icon-stack {
+    display: flex;
+}
+/*
+.tab-icon-overlay {
+    display: none;
+}
+*/
+.tab-icon-image {
+    opacity: 1 !important;
+}
+
+browser {
+    margin-bottom: 20px;
+}
+
+#main-window[sizemode="fullscreen"] #statuspanel {
+    display: none !important;
+}
+
+#main-window[sizemode="fullscreen"] browser {
+    margin-bottom: 0px;
+}
+
+#statuspanel-label {
+    border: none !important;
+    outline: none !important;
+    background: none !important;
+}
+
+notification-message[value="drmContentDisabled"] {
+    display:none !important;
+}
+
