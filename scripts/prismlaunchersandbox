@@ -12,15 +12,15 @@ exec bwrap \
     --die-with-parent \
     --dev /dev \
     --proc /proc \
+    --ro-bind /usr/lib /usr/lib \
+    --ro-bind /usr/bin /usr/bin \
+    --ro-bind /etc /etc \
+    --ro-bind /usr/share /usr/share \
     --symlink usr/lib /lib \
     --symlink usr/lib64 /lib64 \
     --symlink usr/bin /bin \
     --symlink usr/bin /sbin \
-    --ro-bind /usr/lib /usr/lib \
-    --ro-bind /usr/lib64 /usr/lib64 \
-    --ro-bind /usr/bin /usr/bin \
-    --ro-bind /etc /etc \
-    --ro-bind /usr/share /usr/share \
+    --symlink /usr/lib /usr/lib64 \
     --dev-bind-try /dev/dri /dev/dri \
     --ro-bind-try /sys/dev/char /sys/dev/char \
     --ro-bind-try /sys/devices /sys/devices \
@@ -32,12 +32,11 @@ exec bwrap \
     --ro-bind-try /run/user/$UID/bus /run/user/$UID/bus \
     --setenv XDG_RUNTIME_DIR "/run/user/$UID" \
     --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=/run/user/$UID/bus" \
-    --setenv ALSOFT_DRIVERS pulse \
     --setenv XCURSOR_THEME breeze_cursors \
     --setenv PATH /usr/bin:$HOME/.local/bin/ \
     --tmpfs /tmp \
-    --bind-try $HOME/Games/PrismLauncher $HOME/Games/PrismLauncher \
     --ro-bind-try $HOME/.Xauthority $HOME/.Xauthority \
+    --ro-bind-try $XAUTHORITY $XAUTHORITY \
     --ro-bind-try $HOME/.Xdefaults $HOME/.Xdefaults \
     --ro-bind-try $HOME/.Xresources $HOME/.Xresources \
     --ro-bind-try $HOME/.config/gamemode.ini $HOME/.config/gamemode.ini \
@@ -49,7 +48,9 @@ exec bwrap \
     --ro-bind-try /usr/lib/snapd-xdg-open/xdg-open /usr/bin/xdg-open \
     --ro-bind-try /usr/lib/snapd-xdg-open/xdg-open /usr/bin/firefox \
     --ro-bind-try /usr/lib/snapd-xdg-open/xdg-open /usr/bin/dolphin \
+    --setenv ALSOFT_DRIVERS pulse \
+    --bind-try $HOME/Games/PrismLauncher $HOME/Games/PrismLauncher \
     --bind-try $HOME/.local/share/PrismLauncher $HOME/.local/share/PrismLauncher \
     --ro-bind-try $HOME/.local/bin/instancesandbox $HOME/.local/bin/instancesandbox \
     --bind-try $HOME/.cache/PrismLauncher $HOME/.cache \
-    prismlauncher "$@"
+    /usr/bin/prismlauncher "$@"
