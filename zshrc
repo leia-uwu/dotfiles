@@ -7,11 +7,16 @@ HISTFILE=~/.local/share/zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 setopt hist_expire_dups_first
+setopt hist_ignore_all_dups
 setopt hist_ignore_dups
 setopt hist_ignore_space
+setopt inc_append_history
+setopt prompt_subst
+setopt share_history
 setopt hist_verify
 setopt NO_HUP
 setopt correct
+
 
 zstyle :compinstall filename "$HOME/.zshrc"
 
@@ -21,6 +26,7 @@ compinit -d ~/.cache/zcompdump
 eval "$(dircolors)"
 
 zstyle ':completion:*' rehash true
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cmd'
 zstyle ':completion:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
@@ -96,7 +102,7 @@ function precmd() {
     fi
 }
 
-PROMPT="[%F{yellow}%?%f](%F{cyan}%v%f)%F{red}%n%f@%F{blue}%m%F{green} %B%~%b%f"' $(vcs_info_wrapper)'$'\n%# '
+PROMPT="[%F{yellow}%?%f](%F{cyan}%v%f)%F{magenta}%n%f@%F{blue}%m%F{green} %B%~%b%f"' $(vcs_info_wrapper)'$'\n%# '
 
 if [[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
