@@ -29,6 +29,7 @@ chmod='chmod --preserve-root' \
 chgrp='chgrp --preserve-root' \
 history="history 0" \
 wlprop="qdbus org.kde.KWin /KWin org.kde.KWin.queryWindowInfo" \
+fetch="neofetch | queercat -f 1 -h 0 -v 2" \
 
 cdtmp () {
     cd $(mktemp -d)
@@ -65,4 +66,10 @@ dbase32() {
 
 ebase32() {
     echo "$@" | base32
+}
+
+compilekdestuff() {
+    cmake -S "$HOME/kde/src/$1" -B "$HOME/kde/build/$1" -DCMAKE_INSTALL_PREFIX="$HOME/kde/usr" -G "Kate - Ninja" -DBUILD_TESTING=off
+    cmake --build "$HOME/kde/build/$1" -j4
+    cmake --install "$HOME/kde/build/$1"
 }

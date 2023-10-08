@@ -1,4 +1,4 @@
-function preexec() {
+preexec() {
     timer=$(($(date +%s%0N)/1000000))
 }
 preexec
@@ -17,11 +17,13 @@ setopt hist_verify
 setopt NO_HUP
 setopt correct
 
-
 zstyle :compinstall filename "$HOME/.zshrc"
 
-autoload -Uz compinit
-compinit -d ~/.cache/zcompdump
+local zdump="$HOME/.cache/zdump"
+autoload -Uz bashcompinit compinit
+
+zmodload zsh/zutil
+zmodload zsh/complist
 
 eval "$(dircolors)"
 
@@ -31,9 +33,17 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cmd'
 zstyle ':completion:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*' menu select
+zstyle ':completion::*' use-cache 'true'
+zstyle ':completion::*' cache-path "$HOME/.cache"
 
-autoload bashcompinit
+# compile completion
 bashcompinit
+compinit -d "$zdump"
+if [[ ! "${zdump}.zwc" -nt "$zdump" ]]
+then
+	zcompile "$zdump"
+fi
+unset zdump
 
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
@@ -63,7 +73,7 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
 # prompt
-setopt promptsubst
+setopt prompt_subst
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' actionformats \
     '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
@@ -71,16 +81,9 @@ zstyle ':vcs_info:*' formats       \
     '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
 zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 
-zstyle ':vcs_info:*' enable git cvs svn
+zstyle ':vcs_info:*' enable git
 
-vcs_info_wrapper() {
-    vcs_info
-    if [ -n "$vcs_info_msg_0_" ]; then
-        echo "%{$fg[grey]%}${vcs_info_msg_0_}%{$reset_color%}$del"
-    fi
-}
-
-function precmd() {
+precmd() {
     if [ $timer ]; then
         local now=$(date +%s%3N)
         local d_ms=$(($now-$timer))
@@ -100,16 +103,24 @@ function precmd() {
 
         unset timer
     fi
+    vcs_info
 }
+local pink="#ff87ff"
 
-PROMPT="[%F{yellow}%?%f](%F{cyan}%v%f)%F{magenta}%n%f@%F{blue}%m%F{green} %B%~%b%f"' $(vcs_info_wrapper)'$'\n%# '
+PROMPT="%K{blue}[%?]%F{blue}%K{$pink}%f🕛%v%K{#ffffff}%F{$pink}%n%f%K{$pink}%K{$pink}%m%F{$pink}%K{blue}%F{#ffffff}%~%f%F{blue}%k"' ${vcs_info_msg_0_}'"
+%K{$pink}%F{#ffffff}%#%k%F{$pink}%k"
+unset pink
 
-if [[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-if [[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+loadPlugin() {
+    plugin="/usr/share/zsh/plugins/$1/$1.zsh"
+    if [[ -f $plugin ]]; then
+        source $plugin
+    fi
+}
+#
+loadPlugin zsh-syntax-highlighting
+loadPlugin zsh-autosuggestions
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 
 export PAGER="most -w"
@@ -123,7 +134,7 @@ export CFLAGS="-fcolor-diagnostics"
 export CXXFLAGS="$CFLAGS"
 #export LDFLAGS="-fuse-ld=mold"
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
-export CMAKE_COLOR_DIAGNOSTICS=1
+# export CMAKE_COLOR_DIAGNOSTICS=1
 export CMAKE_GENERATOR="Kate - Ninja"
 export QMAKESPEC=linux-clang
 
