@@ -108,7 +108,7 @@ precmd() {
 local pink="#ff87ff"
 
 PROMPT="%K{blue}[%?]%F{blue}%K{$pink}%f🕛%v%K{#ffffff}%F{$pink}%n%f%K{$pink}%K{$pink}%m%F{$pink}%K{blue}%F{#ffffff}%~%f%F{blue}%k"' ${vcs_info_msg_0_}'"
-%K{$pink}%F{#ffffff}%#%k%F{$pink}%k"
+%K{$pink}%F{#ffffff}%#%k%F{$pink}%k%f"
 unset pink
 
 loadPlugin() {
