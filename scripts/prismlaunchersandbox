@@ -28,6 +28,7 @@ exec bwrap \
     --ro-bind-try "/run/user/$UID/pipewire-0" "/run/user/$UID/pipewire-0" \
     --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
     --bind-try "/run/user/$UID/discord-ipc-0" /run/user/$UID/discord-ipc-0 \
+    --bind-try "/run/user/$UID/discord-ipc-1" /run/user/$UID/discord-ipc-1 \
     --ro-bind-try /run/user/$UID/$WAYLAND_DISPLAY /run/user/$UID/$WAYLAND_DISPLAY \
     --ro-bind-try /run/user/$UID/bus /run/user/$UID/bus \
     --setenv XDG_RUNTIME_DIR "/run/user/$UID" \
@@ -44,6 +45,7 @@ exec bwrap \
     --ro-bind-try $HOME/.config/breezerc $HOME/.config/breezerc \
     --ro-bind-try $HOME/.config/klassyrc $HOME/.config/klassyrc \
     --ro-bind-try $HOME/.config/qt5ct $HOME/.config/qt5ct \
+    --ro-bind-try $HOME/kde/usr $HOME/kde/usr \
     --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
     --ro-bind-try /usr/lib/snapd-xdg-open/xdg-open /usr/bin/xdg-open \
     --ro-bind-try /usr/lib/snapd-xdg-open/xdg-open /usr/bin/firefox \
@@ -51,6 +53,5 @@ exec bwrap \
     --setenv ALSOFT_DRIVERS pulse \
     --bind-try $HOME/Games/PrismLauncher $HOME/Games/PrismLauncher \
     --bind-try $HOME/.local/share/PrismLauncher $HOME/.local/share/PrismLauncher \
-    --ro-bind-try $HOME/.local/bin/instancesandbox $HOME/.local/bin/instancesandbox \
     --bind-try $HOME/.cache/PrismLauncher $HOME/.cache \
     /usr/bin/prismlauncher "$@"
