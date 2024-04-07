@@ -39,22 +39,12 @@ div#fullscr-toggler {
     opacity: 1 !important;
 }
 
-browser {
-    margin-bottom: 20px;
-}
-
 #main-window[sizemode="fullscreen"] #statuspanel {
     display: none !important;
 }
 
 #main-window[sizemode="fullscreen"] browser {
     margin-bottom: 0px;
-}
-
-#statuspanel-label {
-    border: none !important;
-    outline: none !important;
-    background: none !important;
 }
 
 notification-message[value="drmContentDisabled"] {
