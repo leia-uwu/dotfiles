@@ -125,14 +125,14 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 
 export PAGER="most -w"
 export LC_MONETARY=pt_BR.UTF-8
-export EDITOR=vim
+export EDITOR=nvim
 
 # compiler stuff
 export CC="clang"
 export CXX="clang++"
 export CFLAGS="-fcolor-diagnostics"
 export CXXFLAGS="$CFLAGS"
-#export LDFLAGS="-fuse-ld=mold"
+export LDFLAGS="-fuse-ld=mold"
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
 # export CMAKE_COLOR_DIAGNOSTICS=1
 export CMAKE_GENERATOR="Kate - Ninja"
@@ -195,3 +195,4 @@ complete -o nospace -F _comp_kdesrc_run kdesrc-run
 ################################################################################
 
 precmd
+
