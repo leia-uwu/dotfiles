@@ -128,10 +128,10 @@ export LC_MONETARY=pt_BR.UTF-8
 export EDITOR=nvim
 
 # compiler stuff
-export CC="clang"
-export CXX="clang++"
-export CFLAGS="-fcolor-diagnostics"
-export CXXFLAGS="$CFLAGS"
+export CC="gcc"
+export CXX="g++"
+# export CFLAGS="-fcolor-diagnostics"
+# export CXXFLAGS="$CFLAGS"
 export LDFLAGS="-fuse-ld=mold"
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
 # export CMAKE_COLOR_DIAGNOSTICS=1
