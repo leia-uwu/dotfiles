@@ -12,24 +12,25 @@ div#fullscr-toggler {
 }
 
 :root {
-    --toolbar-bgimage: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'> <rect fill='rgba(255,255,255,0.1)' x='0' y='0' width='100%' height='100%'/></svg>")!important;
+    --toolbar-bgimage: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'> <rect fill='rgba(255,255,255,0.1)' x='0' y='0' width='100%' height='100%'/></svg>") !important;
 }
 
-#TabsToolbar #firefox-view-button[open] > .toolbarbutton-icon,
+#TabsToolbar #firefox-view-button[open]>.toolbarbutton-icon,
 .tab-background:is([selected], [multiselected]) {
     border-top: AccentColor 3px solid !important;
-    background-color: Menu!important;
+    background-color: Menu !important;
     background-image: var(--toolbar-bgimage);
 }
 
 .browser-toolbar:not(.titlebar-color) {
-    background-color: Menu!important;
+    background-color: Menu !important;
     background-image: var(--toolbar-bgimage);
 }
 
 .tab-icon-stack {
     display: flex;
 }
+
 /*
 .tab-icon-overlay {
     display: none;
@@ -48,6 +49,18 @@ div#fullscr-toggler {
 }
 
 notification-message[value="drmContentDisabled"] {
-    display:none !important;
+    display: none !important;
 }
 
+#alltabs-button {
+    display: none !important;
+}
+
+.tab-icon-overlay {
+    &:not([crashed]) {
+        &:is([soundplaying], [muted], [activemedia-blocked]) {
+            background-color: transparent !important;
+            border: none !important;
+        }
+    }
+}
