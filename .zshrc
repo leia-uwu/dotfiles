@@ -148,7 +148,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 
 addToPath() {
     if [ -d "$1" ] ; then
-        PATH="$1:$PATH"
+        export PATH="$1:$PATH"
     fi
 }
 
