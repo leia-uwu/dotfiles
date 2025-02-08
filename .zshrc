@@ -120,11 +120,37 @@ precmd() {
     fi
     vcs_info
 }
-local pink="#ff87ff"
 
-PROMPT="%K{blue}[%?]%F{blue}%K{$pink}%f🕛%v%K{#ffffff}%F{$pink}%n%f%K{$pink}%K{$pink}%m%F{$pink}%K{blue}%F{#ffffff}%~%f%F{blue}%k"' ${vcs_info_msg_0_}'"
-%K{$pink}%F{#ffffff}%#%k%F{$pink}%k%f"
+
+if [[ $TERM == "xterm-256color" ]]; then
+    pink="#ff87ff"
+    blue="#1C98F3"
+    white="#ffffff"
+else
+    pink="magenta"
+    blue="blue"
+    white="white"
+fi
+
+PROMPT_EXIT_CODE="%F{$white}%K{$blue}[%?]%F{$blue}%K{$pink}"
+PROMPT_CLOCK="%F{$white}🕛%v%K{$white}%F{$pink}"
+PROMPT_USERNAME="%n%F{$white}%K{$pink}"
+PROMPT_HOSTNAME="%K{$pink}%m%F{$pink}%K{$blue}"
+PROMPT_PATH="%F{$white}%~%f%F{$blue}%k"
+PROMPT_PROMPT="%K{$pink}%F{$white}%#%k%F{$pink}%k%f"
+
+PROMPT="${PROMPT_EXIT_CODE}${PROMPT_CLOCK}${PROMPT_USERNAME}${PROMPT_HOSTNAME}${PROMPT_PATH}"' ${vcs_info_msg_0_}'"
+${PROMPT_PROMPT}"
+
+unset PROMPT_EXIT_CODE
+unset PROMPT_CLOCK
+unset PROMPT_USERNAME
+unset PROMPT_HOSTNAME
+unset PROMPT_PATH
+
 unset pink
+unset blue
+unset white
 
 #
 # PLUGINS
@@ -133,7 +159,7 @@ unset pink
 loadPlugin() {
     plugin="/usr/share/zsh/plugins/$1/$1.zsh"
     if [[ -f $plugin ]]; then
-        source $plugin
+        source $plugin;
     fi
 }
 
@@ -147,23 +173,23 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 #
 
 addToPath() {
-    if [ -d "$1" ] ; then
+    if [ -d "$1" ]; then
         export PATH="$1:$PATH"
     fi
 }
 
 export PAGER="most -w"
-export EDITOR=nvim
+export EDITOR=vim
 
 # compiler stuff
-export CC="gcc"
-export CXX="g++"
+export CC="clang"
+export CXX="clang++"
 # export CFLAGS="-fcolor-diagnostics"
 # export CXXFLAGS="$CFLAGS"
 export LDFLAGS="-fuse-ld=mold"
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
-# export CMAKE_COLOR_DIAGNOSTICS=1
-# export CMAKE_GENERATOR="Kate - Ninja"
+export CMAKE_COLOR_DIAGNOSTICS=1
+export CMAKE_GENERATOR="Kate"
 # export QMAKESPEC=linux-clang
 
 export RUSTUP_HOME="$HOME/.local/share/rustup"
