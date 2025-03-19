@@ -6,38 +6,44 @@ div#fullscr-toggler {
     transition: none !important;
 }
 
+#tabbrowser-tabs {
+    &[orient="horizontal"] {
+        --tabstrip-min-height: 30px;
+    }
+}
+
 .tab-background {
     margin: 0 !important;
     --tab-border-radius: 5px 5px 0px 0px !important;
 }
 
-:root {
-    --toolbar-bgimage: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'> <rect fill='rgba(255,255,255,0.1)' x='0' y='0' width='100%' height='100%'/></svg>") !important;
-}
-
 #TabsToolbar #firefox-view-button[open]>.toolbarbutton-icon,
 .tab-background:is([selected], [multiselected]) {
     border-top: AccentColor 3px solid !important;
-    background-color: Menu !important;
-    background-image: var(--toolbar-bgimage);
+    background-color: color-mix(in srgb, -moz-dialog 90%, white) !important;
 }
 
-.browser-toolbar:not(.titlebar-color) {
+.browser-toolbar:not(#TabsToolbar) {
     background-color: Menu !important;
-    background-image: var(--toolbar-bgimage);
+    background-color: color-mix(in srgb, -moz-dialog 90%, white) !important;
 }
 
 .tab-icon-stack {
     display: flex;
 }
 
-/*
-.tab-icon-overlay {
-    display: none;
-}
-*/
 .tab-icon-image {
     opacity: 1 !important;
+}
+
+.tab-icon-overlay {
+    &:not([crashed]) {
+        &:is([soundplaying], [muted], [activemedia-blocked]) {
+            background-color: transparent !important;
+            border: none !important;
+            filter: invert(100%);
+        }
+    }
 }
 
 #main-window[sizemode="fullscreen"] #statuspanel {
@@ -48,19 +54,12 @@ div#fullscr-toggler {
     margin-bottom: 0px;
 }
 
+/*
 notification-message[value="drmContentDisabled"] {
     display: none !important;
 }
+*/
 
 #alltabs-button {
     display: none !important;
-}
-
-.tab-icon-overlay {
-    &:not([crashed]) {
-        &:is([soundplaying], [muted], [activemedia-blocked]) {
-            background-color: transparent !important;
-            border: none !important;
-        }
-    }
 }
