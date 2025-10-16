@@ -5,7 +5,9 @@ user_pref("widget.use-xdg-desktop-portal.mime-handler", 1);
 user_pref("widget.use-xdg-desktop-portal.location", 1);
 user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
 
-
+// Ui stuff
+user_pref("browser.tabs.inTitlebar", 0); // disable CSD
+user_pref("browser.toolbars.bookmarks.visibility", "never"); // hide bookmarks toolbar
 user_pref("widget.gtk.overlay-scrollbars.enabled", false); // disable gtk overlay scrollbars
 user_pref("toolkit.tabbox.switchByScrolling", true); // switch tabs by scrolling on the tab bar
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // enable user chrome css
@@ -19,6 +21,23 @@ user_pref("general.autoScroll", true); // enable middle click auto scroll
 user_pref("screenshots.browser.component.enabled", true); // enable screenshot tool in about: pages
 user_pref("media.videocontrols.picture-in-picture.improved-video-controls.enabled", true); // improved PIP video controls
 
+user_pref("browser.urlbar.suggest.topsites", false);
+user_pref("browser.newtabpage.activity-stream.feeds.system.topsites", false);
+user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
+user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
+user_pref("browser.newtabpage.activity-stream.telemetry", false);
+user_pref("browser.newtabpage.pinned", "[]");
+
+// I HATE AI SLOP I HATE AI SLOP
+user_pref("browser.ml.chat.enabled", false);
+user_pref("browser.ml.enable", false);
+user_pref("browser.ml.chat.shortcuts", false);
+user_pref("browser.ml.chat.page.menuBadge", false);
+user_pref("browser.ml.chat.page.footerBadge", false);
+user_pref("browser.ml.chat.page", false);
+user_pref("browser.ml.chat.menu", false);
+user_pref("browser.ml.linkPreview.longPress", false);
+
 // performance
 user_pref("media.ffmpeg.vaapi.enabled", true);
 user_pref("layers.acceleration.force-enabled", true);
@@ -31,7 +50,7 @@ user_pref("gfx.canvas.accelerated", true);
 /* 0201: use Mozilla geolocation service instead of Google if permission is granted [FF74+]
  * Optionally enable logging to the console (defaults to false) ***/
 user_pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%");
-   // user_pref("geo.provider.network.logging.enabled", true); // [HIDDEN PREF]
+// user_pref("geo.provider.network.logging.enabled", true); // [HIDDEN PREF]
 /* 0202: disable using the OS's geolocation service ***/
 user_pref("geo.provider.ms-windows-location", false); // [WINDOWS]
 user_pref("geo.provider.use_corelocation", false); // [MAC]
@@ -100,7 +119,7 @@ user_pref("app.normandy.api_url", "");
 /* 0350: disable Crash Reports ***/
 user_pref("breakpad.reportURL", "");
 user_pref("browser.tabs.crashReporting.sendReport", false); // [FF44+]
-   // user_pref("browser.crashReports.unsubmittedCheck.enabled", false); // [FF51+] [DEFAULT: false]
+// user_pref("browser.crashReports.unsubmittedCheck.enabled", false); // [FF51+] [DEFAULT: false]
 /* 0351: enforce no submission of backlogged Crash Reports [FF58+]
  * [SETTING] Privacy & Security>Firefox Data Collection & Use>Allow Firefox to send backlogged crash reports  ***/
 user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false); // [DEFAULT: false]
